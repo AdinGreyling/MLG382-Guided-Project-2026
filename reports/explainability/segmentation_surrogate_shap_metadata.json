@@ -1,0 +1,6 @@
+{
+  "method": "SHAP on RandomForest surrogate predicting KMeans cluster id",
+  "sample_size": 8000,
+  "shap_rows": 1500,
+  "dataset_path": "C:\\Users\\ading\\OneDrive\\Desktop\\Guided_Project_MLG382_2026\\data\\raw\\Diabetes_and_LifeStyle_Dataset_.csv"
+}

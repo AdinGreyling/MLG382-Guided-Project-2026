@@ -1,0 +1,4 @@
+cluster,Age,alcohol_consumption_per_week,physical_activity_minutes_per_week,diet_score,sleep_hours_per_day,screen_time_hours_per_day,family_history_diabetes,hypertension_history,cardiovascular_history,bmi,waist_to_hip_ratio,systolic_bp,diastolic_bp,heart_rate,cholesterol_total,hdl_cholesterol,ldl_cholesterol,triglycerides,glucose_fasting,glucose_postprandial,insulin_level,hba1c,diabetes_risk_score,diagnosed_diabetes
+0,57.394,2.033,114.984,5.618,7.004,5.96,0.142,0.296,0.103,28.337,0.888,123.16,77.517,69.722,208.583,50.616,128.759,140.301,112.276,159.615,11.16,6.525,33.12,0.626
+1,43.431,1.981,133.125,6.29,6.996,5.949,0.095,0.202,0.056,23.745,0.835,109.852,73.49,69.139,172.454,56.415,87.585,108.629,101.624,139.235,7.568,5.934,24.419,0.3
+2,50.965,2.003,104.912,6.031,6.993,6.101,0.468,0.264,0.083,25.016,0.849,115.336,74.959,70.162,178.406,54.778,94.353,117.181,122.186,187.477,8.674,7.277,34.539,0.962

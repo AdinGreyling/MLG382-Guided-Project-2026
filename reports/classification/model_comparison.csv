@@ -1,0 +1,4 @@
+model,macro_f1,weighted_f1
+XGBoost,0.5497,0.9155
+RandomForest,0.5485,0.914
+DecisionTree,0.5114,0.8517

@@ -1,0 +1,18 @@
+{
+  "best_model": "XGBoost",
+  "best_macro_f1": 0.5497,
+  "target_column": "diabetes_stage",
+  "dropped_feature_columns": [
+    "diabetes_risk_score",
+    "diagnosed_diabetes"
+  ],
+  "dataset_path": "C:\\Users\\ading\\OneDrive\\Desktop\\Guided_Project_MLG382_2026\\data\\raw\\Diabetes_and_LifeStyle_Dataset_.csv",
+  "class_labels": [
+    "Gestational",
+    "No Diabetes",
+    "Pre-Diabetes",
+    "Type 1",
+    "Type 2"
+  ],
+  "best_model_uses_label_encoding": true
+}

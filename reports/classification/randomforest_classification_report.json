@@ -1,0 +1,45 @@
+{
+  "Gestational": {
+    "precision": 0.0,
+    "recall": 0.0,
+    "f1-score": 0.0,
+    "support": 53.0
+  },
+  "No Diabetes": {
+    "precision": 0.845984598459846,
+    "recall": 0.9935400516795866,
+    "f1-score": 0.9138443256090315,
+    "support": 1548.0
+  },
+  "Pre-Diabetes": {
+    "precision": 0.8234433209153805,
+    "recall": 0.9977430275673062,
+    "f1-score": 0.9022523507544281,
+    "support": 6203.0
+  },
+  "Type 1": {
+    "precision": 0.0,
+    "recall": 0.0,
+    "f1-score": 0.0,
+    "support": 23.0
+  },
+  "Type 2": {
+    "precision": 0.9951609717558759,
+    "recall": 0.8662425857474426,
+    "f1-score": 0.9262374189990349,
+    "support": 11633.0
+  },
+  "accuracy": 0.9149023638232271,
+  "macro avg": {
+    "precision": 0.5329177782262204,
+    "recall": 0.5715051329988671,
+    "f1-score": 0.5484668190724988,
+    "support": 19460.0
+  },
+  "weighted avg": {
+    "precision": 0.9246716681649563,
+    "recall": 0.9149023638232271,
+    "f1-score": 0.9139888100199522,
+    "support": 19460.0
+  }
+}

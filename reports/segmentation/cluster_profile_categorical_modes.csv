@@ -1,0 +1,4 @@
+cluster,gender,ethnicity,education_level,income_level,employment_status,smoking_status
+0,Female,White,Highschool,Middle,Employed,Never
+1,Female,White,Highschool,Middle,Employed,Never
+2,Female,White,Highschool,Middle,Employed,Never

@@ -1,0 +1,5 @@
+{
+  "model_type": "XGBClassifier",
+  "sample_size": 2000,
+  "dataset_path": "C:\\Users\\ading\\OneDrive\\Desktop\\Guided_Project_MLG382_2026\\data\\raw\\Diabetes_and_LifeStyle_Dataset_.csv"
+}

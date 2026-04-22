@@ -1,0 +1,11 @@
+{
+  "n_clusters": 3,
+  "random_state": 42,
+  "silhouette_score": 0.0627,
+  "dataset_path": "C:\\Users\\ading\\OneDrive\\Desktop\\Guided_Project_MLG382_2026\\data\\raw\\Diabetes_and_LifeStyle_Dataset_.csv",
+  "dropped_columns": [
+    "diabetes_stage",
+    "diabetes_risk_score",
+    "diagnosed_diabetes"
+  ]
+}

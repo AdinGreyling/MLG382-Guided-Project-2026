@@ -1,0 +1,7 @@
+services:
+  - type: web
+    name: mlg382-diabetes-dash
+    plan: free
+    runtime: python
+    buildCommand: pip install -r requirements.txt && cd src && python train_classify.py && python train_segment.py && python explain.py
+    startCommand: gunicorn app.app:server --bind 0.0.0.0:$PORT

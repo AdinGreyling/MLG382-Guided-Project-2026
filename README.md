@@ -1,15 +1,14 @@
 # MLG382 Guided Project 2026
 
-Diabetes risk decision support project for BC Analytics.
+Solo submission — BC Analytics diabetes risk prototype for MLG382: classify `diabetes_stage` (decision tree, random forest, XGBoost), k-means (k=3) for segments, SHAP exports under `reports/explainability/`, Dash UI in `app/app.py`.
 
-## Project Goals
+**Repo:** https://github.com/AdinGreyling/MLG382-Guided-Project-2026  
+**Live app:** https://mlg382-guided-project-2026.onrender.com/  
+**BC Connect report:** two pages, CRISP-DM, links to this repo and the live app.
 
-- Predict diabetes risk class using `diabetes_stage`
-- Segment patients into lifestyle groups using K-Means (`k=3`)
-- Explain model outputs using SHAP
-- Deploy an interactive Dash app
+`data/raw/` holds the CSV (and the brief PDF). `src/` has preprocess + train + explain scripts. `models/` gets the pipelines after a train run. `*.joblib` is gitignored by default. `reports/` holds the exported metrics and SHAP CSVs.
 
-## Recommended Setup
+`diabetes_stage` is the target (No Diabetes, Pre-Diabetes, Type 1, Type 2, Gestational). Type 2 is most rows; macro F1 in `reports/classification/model_comparison.csv` matters alongside weighted F1.
 
 ```powershell
 python -m venv venv
@@ -17,11 +16,16 @@ python -m venv venv
 pip install -r requirements.txt
 ```
 
-## Project Structure
+```powershell
+.\venv\Scripts\python src\train_classify.py
+.\venv\Scripts\python src\train_segment.py
+.\venv\Scripts\python src\explain.py
+```
 
-- `data/raw/` raw dataset files
-- `notebooks/` exploration notebooks
-- `src/` training and preprocessing scripts
-- `models/` saved trained models
-- `app/` Dash web app code
-- `reports/` report assets and final report
+```powershell
+.\venv\Scripts\python app\app.py
+```
+
+Local URL: http://127.0.0.1:8050/
+
+Render: `Procfile`, `render.yaml`, `runtime.txt` target gunicorn on `app.app:server` with `$PORT`. Build runs the three Python scripts under `src/` so the app finds `models/` without pushing large binaries. If Render build times out: train locally, add the `.joblib` files to the repo, shorten the build command.

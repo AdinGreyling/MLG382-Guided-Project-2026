@@ -10,6 +10,7 @@ import pandas as pd
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import classification_report, confusion_matrix, f1_score
 from sklearn.tree import DecisionTreeClassifier
+from sklearn.preprocessing import LabelEncoder
 from xgboost import XGBClassifier
 
 from preprocess import (
@@ -87,6 +88,10 @@ def train_and_evaluate() -> None:
     X, y = split_features_target(df, target_col=TARGET_COL, drop_cols=DEFAULT_DROP_COLS)
     X_train, X_test, y_train, y_test = make_train_test_split(X, y)
 
+    # XGBoost expects numeric class labels, but we keep original strings for readability
+    label_encoder = LabelEncoder()
+    label_encoder.fit(y_train)
+
     models = build_models()
     summary_rows: list[dict[str, float | str]] = []
     best_name = ""
@@ -96,11 +101,21 @@ def train_and_evaluate() -> None:
     for name, model in models.items():
         print(f"\nTraining: {name}")
         pipeline = build_classification_pipeline(model=model, X=X_train)
-        pipeline.fit(X_train, y_train)
-        y_pred = pipeline.predict(X_test)
 
-        macro_f1 = f1_score(y_test, y_pred, average="macro")
-        weighted_f1 = f1_score(y_test, y_pred, average="weighted")
+        if name == "XGBoost":
+            y_train_used = label_encoder.transform(y_train)
+            y_test_used = label_encoder.transform(y_test)
+            pipeline.fit(X_train, y_train_used)
+            y_pred_used = pipeline.predict(X_test)
+            y_pred = pd.Series(label_encoder.inverse_transform(y_pred_used), index=y_test.index)
+            y_test_for_metrics = y_test
+        else:
+            pipeline.fit(X_train, y_train)
+            y_pred = pipeline.predict(X_test)
+            y_test_for_metrics = y_test
+
+        macro_f1 = f1_score(y_test_for_metrics, y_pred, average="macro")
+        weighted_f1 = f1_score(y_test_for_metrics, y_pred, average="weighted")
 
         summary_rows.append(
             {
@@ -110,12 +125,14 @@ def train_and_evaluate() -> None:
             }
         )
 
-        class_report = classification_report(y_test, y_pred, output_dict=True)
+        class_report = classification_report(
+            y_test_for_metrics, y_pred, output_dict=True, zero_division=0
+        )
         report_path = report_dir / f"{name.lower()}_classification_report.json"
         report_path.write_text(json.dumps(class_report, indent=2), encoding="utf-8")
 
-        labels = sorted(y_test.unique())
-        cm = confusion_matrix(y_test, y_pred, labels=labels)
+        labels = sorted(y_test_for_metrics.unique())
+        cm = confusion_matrix(y_test_for_metrics, y_pred, labels=labels)
         cm_df = pd.DataFrame(cm, index=labels, columns=labels)
         cm_df.to_csv(report_dir / f"{name.lower()}_confusion_matrix.csv", index=True)
 
@@ -141,6 +158,8 @@ def train_and_evaluate() -> None:
         "target_column": TARGET_COL,
         "dropped_feature_columns": DEFAULT_DROP_COLS,
         "dataset_path": str(csv_path),
+        "class_labels": list(map(str, label_encoder.classes_)),
+        "best_model_uses_label_encoding": best_name == "XGBoost",
     }
     (model_dir / "best_classification_metadata.json").write_text(
         json.dumps(metadata, indent=2),
